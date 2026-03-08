@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)
 ![GitHub Packages](https://img.shields.io/badge/GitHub_Packages-Active-brightgreen)
-![Build](https://github.com/petrsafrata/RepoName/actions/workflows/maven-release.yml/badge.svg)
+![Build](https://github.com/petrsafrata/HtmlBodyCleaner/actions/workflows/maven-release.yml/badge.svg)
 
 
 A small, dependency-light Java library to sanitize and normalize HTML document bodies. 
