@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <title>Ukázka čištění HTML</title>
+
+<style>
+.sc-1 { color:red;font-weight:bold }
+.sc-2 { font-size:18px }
+.sc-3 { border:1px solid black }
+</style>
+</head>
+<body>
+<div id="wrapper" class="sc-1">
+  <h1 class="sc-1">Titulek</h1>
+  
+  <p class="sc-2">Ahoj <span class="sc-2">světe</span></p>
+  
+    Text v nepovoleném tagu
+    <strong class="sc-2">zůstane zachován</strong>
+  
+  <img src="photo.jpg" alt="Foto" class="sc-3">
+  
+</div>
+</body>
+</html>

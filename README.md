@@ -1,61 +1,4 @@
-# This is a template for java library projects ⚠️
-
-This repository serves as a template for Java library projects.
-
-It includes preconfigured files such as:
-
-- `LICENSE`
-- `pom.xml`
-- `.gitignore`
-- `VERSION`
-- `update-version.bat`
-- `README.md`
-- `CONTRIBUTING.md`
-
-The template is intended to provide a consistent project structure and basic configuration for new Java library projects.
-
----
-
-## How to Use This Template
-
-Before using this template in a real project, several modifications are required.
-
-### 1. Update `pom.xml`
-
-In `pom.xml`, modify all fields marked with: `<!--- Change .... --->`
-
-### 2. Update Package Name
-
-Rename the base package: `cz.jpmad.library_name` to match your project name and organization.
-
-### 3. Update `CONTRIBUTING.md`
-
-In `CONTRIBUTING.md`, fill in all sections marked with:
-
-- `TODO`
-- `<!Project name!>`
-
-Replace them with the correct project-specific information.
-
----
-
-### 4. Update `README.md`
-
-In `README.md`, complete all sections marked with:
-
-- `TODO`
-- `<!Project name!>`
-
-Replace them with the correct project-specific information.
-
----
-
----
-
----
-
-
-# <!Project name!> 📖
+# HTML Body Cleaner 📖
 ![Java](https://img.shields.io/badge/Java-17%2B-green)
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)
@@ -63,23 +6,39 @@ Replace them with the correct project-specific information.
 ![Build](https://github.com/petrsafrata/RepoName/actions/workflows/maven-release.yml/badge.svg)
 
 
-TODO: Describe the project in a few sentences. What problem does it solve? Who is it for? Why is it useful?
+A small, dependency-light Java library to sanitize and normalize HTML document bodies. 
+It extracts the document body, sanitizes tags and attributes according to configurable rules, 
+converts inline `style` attributes into a deduplicated CSS block, and reassembles the cleaned HTML. 
+Designed for server-side use in Java web pipelines and batch processors.
 
 ---
 
 ## ✨ Features
 
-TODO: List key features of the library. 
+- 🧩 Extracts and isolates content inside the `<body>` element.
+- ⚙️ Configurable sanitization of allowed/disallowed tags and attributes.
+- 🔁 Converts inline `style` attributes into a single generated CSS block with deduplication.
+- 🛡️ Preserves token order and textual content while removing disallowed constructs.
 
 ---
 
 ## 📂 Project Structure
 
 ```
-src/main/java/cz/jpmad/library_name/
-├── 
-│
-└── TODO: Add package structure and key classes/interfaces with brief descriptions.
+src/main/java/cz/jpmad/htmlbodycleaner/
+├── cli
+│   └── Main.java                       # Command-line interface for processing HTML files.
+├── config
+│   └── SanitizationConfig.java         # Configuration class for sanitization rules.
+├── parser
+│   ├── HtmlToken.java                  # Represents a token in the HTML document.
+│   ├── HtmlTokenizer.java              # Tokenizer that converts HTML into a stream of tokens.
+│   └── HtmlWriter.java                 # Utility to write tokens back into HTML format.
+├── sanitizer
+│   ├── BodyExtractor.java              # Extracts content from the <body> element.
+│   ├── StyleExtractor.java             # Extracts and deduplicates inline styles into a CSS block.
+│   └── TagSanitizer.java               # Sanitizes tags and attributes based on configuration.
+└── HtmlBodyCleaner.java                # Main class that orchestrates the cleaning process.
 ```
 
 ---
@@ -95,17 +54,15 @@ To use it in your project, you need to add the GitHub Packages repository and th
 <repositories>
     <repository>
         <id>github</id>
-        <!-- Change to real repo url -->
-        <url>https://maven.pkg.github.com/petrsafrata/Template</url>
+        <url>https://maven.pkg.github.com/petrsafrata/HtmlBodyCleaner</url>
     </repository>
 </repositories>
 
 <dependencies>
     <dependency>
         <groupId>cz.jpmad</groupId>
-        <!-- Change to real project name -->
-        <artifactId>java-library-template</artifactId>
-        <version>0.0.0</version>
+        <artifactId>html-body-cleaner</artifactId>
+        <version>1.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -115,30 +72,46 @@ To use it in your project, you need to add the GitHub Packages repository and th
 ```
 repositories {
     maven {
-        <!-- Change to real repo url -->
-        url = uri("https://maven.pkg.github.com/petrsafrata/Template")
+        url = uri("https://maven.pkg.github.com/petrsafrata/HtmlBodyCleaner")
     }
 }
 
 dependencies {
-    <!-- Change to real project name -->
-    implementation("cz.jpmad:java-library-template:0.0.0")
+    implementation("cz.jpmad:html-body-cleaner:1.0.0")
 }
 ```
 
 ## 🧠 Basic Usage
 
-Retry a function that returns a value:
+Simple example using the default configuration:
 
 ```java
-//TODO: Add example usage of the library. Show how to call a function with retries, how to configure retry attempts, delay, and listeners.
+import cz.jpmad.htmlbodycleaner.HtmlBodyCleaner;
+
+public class Example {
+    public static void main(String[] args) {
+        final String rawHtml = "<html><body><div style=\"color:red\">Hello</div></body></html>";
+        final HtmlBodyCleaner cleaner = new HtmlBodyCleaner(); // or new HtmlBodyCleaner(config)
+        final String cleaned = cleaner.clean(rawHtml);
+        System.out.println(cleaned);
+    }
+}
 ```
+
+Usage with CLI interface:
+
+```bash
+java -jar html-body-cleaner-cli.jar --input input.html --output output.html
+```
+
 
 ## 🧪 Testing
 
 The library includes full unit tests covering:
 
-TODO: List key test cases and scenarios covered by the tests (e.g., successful retries, max attempts reached, delay between retries, listener notifications).
+- Allowed/disallowed tag handling
+- Inline style extraction and CSS deduplication
+- Edge cases (null/empty input, malformed HTML, nested disallowed tags)
 
 You can run tests with:
 
@@ -148,8 +121,8 @@ mvn test
 
 ## 🤝 Contributing
 
-Contributions are welcome!
-
+Contributions are welcome! Feel free to open issues or submit pull requests to improve the API, add features 
+(e.g. CLI options, additional sanitization strategies, style extraction improvements), fix bugs, or expand the documentation.
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
 
 ## 📜 Licence
