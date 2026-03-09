@@ -62,7 +62,7 @@ To use it in your project, you need to add the GitHub Packages repository and th
     <dependency>
         <groupId>cz.jpmad</groupId>
         <artifactId>html-body-cleaner</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.3</version>
     </dependency>
 </dependencies>
 ```
@@ -77,7 +77,7 @@ repositories {
 }
 
 dependencies {
-    implementation("cz.jpmad:html-body-cleaner:1.0.0")
+    implementation("cz.jpmad:html-body-cleaner:1.0.3")
 }
 ```
 
@@ -101,7 +101,7 @@ public class Example {
 Usage with CLI interface:
 
 ```bash
-java -jar html-body-cleaner-cli.jar --input input.html --output output.html
+java -jar html-body-cleaner-1.0.3.jar input.html output.html
 ```
 
 
