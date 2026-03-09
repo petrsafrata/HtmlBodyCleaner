@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cz.jpmad</groupId>
   <artifactId>html-body-cleaner</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>Html Body Cleaner</name>
   <description>Library for processing and sanitizing HTML body content by filtering allowed tags and attributes and transforming inline styles to CSS classes.</description>
